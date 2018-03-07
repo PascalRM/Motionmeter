@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "461825099120",
+    "firebase_url": "https://motionmeter-848f1.firebaseio.com",
+    "project_id": "motionmeter-848f1",
+    "storage_bucket": "motionmeter-848f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461825099120:android:561009a5427608fb",
+        "android_client_info": {
+          "package_name": "ramanathan.pascal.motionmeter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461825099120-152enk2c3e1sk407et3kavc57qn81ujp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ramanathan.pascal.motionmeter",
+            "certificate_hash": "39eaf18194c006a85156431629d752034d69a333"
+          }
+        },
+        {
+          "client_id": "461825099120-ss58n7d5adlqn9dv8ub65ti9u5re1e1f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7QjmCyBxMT0w5Jtztr4BO_GuxF-t59tg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "461825099120-ss58n7d5adlqn9dv8ub65ti9u5re1e1f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
