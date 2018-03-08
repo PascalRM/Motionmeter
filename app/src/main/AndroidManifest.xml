@@ -20,7 +20,8 @@
         </activity>
         <activity
             android:name=".EventsActivity"
-            android:label="@string/title_activity_events"></activity>
+            android:label="@string/title_activity_events" />
+        <activity android:name=".MyEventActivity"></activity>
     </application>
 
 </manifest>
