@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        //actionBar.setTitle(Html.fromHtml("<font color='#000'>Motionmeter</font>"));
 
 
 
@@ -44,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
                 new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build());
 
+        //AuthUI.getInstance().signOut(this);
 // Create and launch sign-in intent
         startActivityForResult(
                 AuthUI.getInstance()
@@ -63,6 +63,10 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+                Intent events = new Intent(this,EventsActivity.class);
+                startActivity(events);
                 // ...
             } else {
                 // Sign in failed, check response for error code
