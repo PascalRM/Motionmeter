@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.Window;
+import android.widget.ListView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -21,30 +22,37 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ramanathan.pascal.motionmeter.model.Events;
+
 public class MainActivity extends AppCompatActivity {
     final int RC_SIGN_IN = 123;
+
+
+    ListView list;
+    Events events;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+        //Hide Actionbar
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        //Adapter erstellen und Werte laden
+        list = findViewById(R.id.listViewEvents);
+        events = Events.getInstance();
+        events.setAdapter(this);
+        events.load();
 
-
-// ...
-
-// Choose authentication providers
+        // Choose authentication providers
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
                 new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build());
 
         //AuthUI.getInstance().signOut(this);
-// Create and launch sign-in intent
+        // Create and launch sign-in intent
         startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
@@ -63,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
 
                 Intent events = new Intent(this,EventsActivity.class);
                 startActivity(events);
