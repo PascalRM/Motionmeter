@@ -4,12 +4,15 @@
 
     <item
         android:id="@+id/navigation_events"
-        android:icon="@color/fui_bgTwitter"
+        android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/title_event" />
-
     <item
         android:id="@+id/navigation_myEvent"
         android:icon="@drawable/logo"
         android:title="@string/title_myEvent" />
+    <item
+        android:id="@+id/navigation_Ich"
+        android:icon="@android:drawable/sym_def_app_icon"
+        android:title="@string/title_ich" />
 
 </menu>

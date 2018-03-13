@@ -73,7 +73,9 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                 Intent events = new Intent(this,EventsActivity.class);
+                events.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(events);
+                finish();
                 // ...
             } else {
                 // Sign in failed, check response for error code

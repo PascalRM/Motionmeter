@@ -3,6 +3,6 @@
     <string name="title_activity_events">EventsActivity</string>
     <string name="title_event">Events</string>
     <string name="title_myEvent">Mein Event</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_ich">Ich</string>
     <string name="title_activity_my_event">MyEventActivity</string>
 </resources>
