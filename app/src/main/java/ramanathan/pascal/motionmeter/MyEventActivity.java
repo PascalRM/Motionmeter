@@ -1,4 +1,5 @@
 package ramanathan.pascal.motionmeter;
+
 import ramanathan.pascal.motionmeter.model.Event;
 import ramanathan.pascal.motionmeter.model.Events;
 
@@ -45,6 +46,9 @@ public class MyEventActivity extends AppCompatActivity {
                         return true;
                     case R.id.navigation_myEvent:
                         return true;
+                    case R.id.navigation_Ich:
+                        showMe();
+                        return true;
                 }
                 return false;
             }
@@ -62,17 +66,27 @@ public class MyEventActivity extends AppCompatActivity {
         //e.addEvent(event);
     }
 
-    public void showEvents(){
-        Intent m = new Intent(this,EventsActivity.class);
+    public void showEvents() {
+        Intent m = new Intent(this, EventsActivity.class);
         m.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(m);
         finish();
-        overridePendingTransition(0,0);
+        overridePendingTransition(0, 0);
     }
 
-    public void showEvents(View view){
+    public void showMe() {
+        Intent m = new Intent(this, MeActivity.class);
+        m.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(m);
+        finish();
+        overridePendingTransition(0, 0);
+    }
+
+    //OnClickBtnEvent
+    public void showEvents(View view) {
         this.showEvents();
     }
+
 
     @Override
     public void onBackPressed() {
@@ -87,7 +101,7 @@ public class MyEventActivity extends AppCompatActivity {
 
             @Override
             public void run() {
-                doubleBackToExitPressedOnce=false;
+                doubleBackToExitPressedOnce = false;
             }
         }, 2000);
     }

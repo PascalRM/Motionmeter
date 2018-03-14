@@ -42,6 +42,9 @@ public class EventsActivity extends AppCompatActivity {
                     case R.id.navigation_myEvent:
                         showMyEvent();
                         return true;
+                    case R.id.navigation_Ich:
+                        showMe();
+                        return true;
                 }
                 return false;
             }
@@ -61,6 +64,14 @@ public class EventsActivity extends AppCompatActivity {
 
     public void showMyEvent(){
         Intent m = new Intent(this,MyEventActivity.class);
+        m.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(m);
+        finish();
+        overridePendingTransition(0, 0);
+    }
+
+    public void showMe(){
+        Intent m = new Intent(this,MeActivity.class);
         m.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(m);
         finish();
