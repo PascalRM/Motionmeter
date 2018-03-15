@@ -22,13 +22,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ramanathan.pascal.motionmeter.model.Event;
 import ramanathan.pascal.motionmeter.model.Events;
 
 public class MainActivity extends AppCompatActivity {
     final int RC_SIGN_IN = 123;
 
 
-    ListView list;
     Events events;
 
     @Override
@@ -41,9 +41,10 @@ public class MainActivity extends AppCompatActivity {
         actionBar.hide();
 
         //Adapter erstellen und Werte laden
-        list = findViewById(R.id.listViewEvents);
         events = Events.getInstance();
-        events.setAdapter(this);
+        Event e = new Event();
+        e.setName("Allokation der Ressourcen");
+        events.addEvent(e);
         events.load();
 
         // Choose authentication providers
@@ -83,4 +84,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -12,6 +13,12 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.google.firebase.firestore.DocumentListenOptions;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import ramanathan.pascal.motionmeter.model.Event;
 import ramanathan.pascal.motionmeter.model.Events;
@@ -52,15 +59,16 @@ public class EventsActivity extends AppCompatActivity {
 
         list = findViewById(R.id.listViewEvents);
         events = Events.getInstance();
-        events.setAdapter(this);
+        ArrayAdapter adapter = new ArrayAdapter<Event>(this, android.R.layout.simple_list_item_1, events.getEvents());
+        events.setAdapter(adapter);
 
-        list.setAdapter(events.getAdapter());
-        events.getEvents();
+        list.setAdapter(adapter);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_events);
     }
+
 
     public void showMyEvent(){
         Intent m = new Intent(this,MyEventActivity.class);
