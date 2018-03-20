@@ -58,12 +58,6 @@ public class MyEventActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_myEvent);
 
-        Event event = new Event();
-        event.setName("Pascal");
-        event.setStartdate(new Date());
-
-        Events e = Events.getInstance();
-        //e.addEvent(event);
     }
 
     public void showEvents() {
@@ -87,6 +81,11 @@ public class MyEventActivity extends AppCompatActivity {
         this.showEvents();
     }
 
+
+    public void showNewEvent(View view){
+        Intent intent = new Intent(this,NewEventActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public void onBackPressed() {

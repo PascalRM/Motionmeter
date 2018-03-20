@@ -50,22 +50,6 @@ public class Events {
     }
 
     public void load(){
-       /* db.collection("events")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            events = new ArrayList<>();
-                            for (DocumentSnapshot document : task.getResult()) {
-                                events.add(document.toObject(Event.class));
-                            }
-                            adapter.notifyDataSetChanged();
-                        } else {
-                            Log.w("Fehler", "Error getting documents: ", task.getException());
-                        }
-                    }
-                });*/
         db.collection("events").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value,
@@ -107,10 +91,6 @@ public class Events {
         return adapter;
     }
 
-    public void setAdapter(Context context) {
-        this.adapter = new ArrayAdapter<Event>(context, android.R.layout.simple_list_item_1, getEvents());
-        this.adapter.notifyDataSetChanged();
-    }
     public void setAdapter(ArrayAdapter<Event> adapter) {
         this.adapter = adapter;
     }

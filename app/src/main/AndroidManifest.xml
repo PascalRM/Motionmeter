@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,11 +23,17 @@
         <activity
             android:name=".EventsActivity"
             android:label="@string/title_activity_events"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MyEventActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MeActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MyEventActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NewEventActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".NewEvent2Activity"></activity>
     </application>
 
 </manifest>

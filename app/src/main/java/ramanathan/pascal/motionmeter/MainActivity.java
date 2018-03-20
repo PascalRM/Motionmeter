@@ -42,9 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
         //Adapter erstellen und Werte laden
         events = Events.getInstance();
-        Event e = new Event();
-        e.setName("Allokation der Ressourcen");
-        events.addEvent(e);
         events.load();
 
         // Choose authentication providers

@@ -6,4 +6,6 @@
     <string name="title_ich">Ich</string>
     <string name="title_activity_my_event">MyEventActivity</string>
     <string name="button_logout">Abmelden</string>
+    <string name="header_nameEvent">Name des Events</string>
+    <string name="button_next">Weiter</string>
 </resources>
