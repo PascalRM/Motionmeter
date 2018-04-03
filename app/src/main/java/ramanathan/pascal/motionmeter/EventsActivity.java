@@ -44,7 +44,7 @@ public class EventsActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.navigation_events:
+                    case    R.id.navigation_events:
                         return true;
                     case R.id.navigation_myEvent:
                         showMyEvent();

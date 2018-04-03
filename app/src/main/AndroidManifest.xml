@@ -33,7 +33,9 @@
         <activity
             android:name=".NewEventActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".NewEvent2Activity"></activity>
+        <activity android:name=".NewEvent2Activity" />
+        <activity android:name=".FinalNewEventActivity" />
+        <activity android:name=".NewEventPasswordActivity"></activity>
     </application>
 
 </manifest>

@@ -38,6 +38,8 @@ public class Events {
     ArrayList<Event> events = new ArrayList<>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    Event newEvent;
+
     public static Events getInstance() {
         return ourInstance;
     }
@@ -85,6 +87,7 @@ public class Events {
                         Log.w("Fehler", "Error adding document", e);
                     }
                 });
+        this.newEvent = null;
     }
 
     public ArrayAdapter<Event> getAdapter() {
@@ -93,5 +96,16 @@ public class Events {
 
     public void setAdapter(ArrayAdapter<Event> adapter) {
         this.adapter = adapter;
+    }
+
+    public Event getNewEvent() {
+        if(newEvent == null){
+            this.newEvent = new Event();
+        }
+        return newEvent;
+    }
+
+    public void setNewEvent(Event newEvent) {
+        this.newEvent = newEvent;
     }
 }

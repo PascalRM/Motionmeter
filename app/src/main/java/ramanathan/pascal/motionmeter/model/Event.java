@@ -12,6 +12,8 @@ public class Event implements Serializable{
     private String user;
     private Date startdate;
     private Date enddate;
+    private String passwort;
+    private String beschreibung;
 
 
     public String getName() {
@@ -44,6 +46,22 @@ public class Event implements Serializable{
 
     public void setEnddate(Date enddate) {
         this.enddate = enddate;
+    }
+
+    public String getPasswort() {
+        return passwort;
+    }
+
+    public void setPasswort(String passwort) {
+        this.passwort = passwort;
+    }
+
+    public String getBeschreibung() {
+        return beschreibung;
+    }
+
+    public void setBeschreibung(String beschreibung) {
+        this.beschreibung = beschreibung;
     }
 
     @Override
