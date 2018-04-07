@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import ramanathan.pascal.motionmeter.EventsActivity;
 import ramanathan.pascal.motionmeter.MainActivity;
@@ -85,6 +86,10 @@ public class Events {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w("Fehler", "Error adding document", e);
+                        try {
+                            throw new Exception("a",e);
+                        } catch (Exception e1) {
+                        }
                     }
                 });
         this.newEvent = null;

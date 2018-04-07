@@ -10,6 +10,7 @@ import java.util.Date;
 public class Event implements Serializable{
     private String name;
     private String user;
+    private String UID;
     private Date startdate;
     private Date enddate;
     private String passwort;
@@ -62,6 +63,14 @@ public class Event implements Serializable{
 
     public void setBeschreibung(String beschreibung) {
         this.beschreibung = beschreibung;
+    }
+
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 
     @Override

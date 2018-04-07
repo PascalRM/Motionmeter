@@ -29,35 +29,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Name"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textColor="#B3B3B3"/>
 
             <TextView
                 android:id="@+id/textViewName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                android:textSize="23sp" />
+                android:textSize="23sp"/>
 
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Datum"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:paddingTop="10dp"
+                android:textColor="#B3B3B3"/>
 
             <TextView
                 android:id="@+id/textViewDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                android:textSize="23sp" />
+                android:textSize="23sp"/>
 
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Start Zeit"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:paddingTop="10dp"
+                android:textColor="#B3B3B3"/>
 
             <TextView
                 android:id="@+id/textViewStartTime"
@@ -71,7 +76,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="End Zeit"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:paddingTop="10dp"
+                android:textColor="#B3B3B3"/>
 
             <TextView
                 android:id="@+id/textViewEndZeit"
@@ -85,7 +92,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Beschreibung"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:paddingTop="10dp"
+                android:textColor="#B3B3B3"/>
 
             <TextView
                 android:id="@+id/textViewBeschreibung"
@@ -98,6 +107,7 @@
                 android:id="@+id/button6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="onClickInsert"
                 android:text="Erstellen" />
         </LinearLayout>
     </ScrollView>

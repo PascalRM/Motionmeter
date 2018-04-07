@@ -165,6 +165,10 @@ public class NewEventActivity extends AppCompatActivity {
                 endTime.setError("Gueltige Zeit auswaehlen");
                 keineFehler = false;
             }
+            //Überprüfung ob die Startzeit bereits vergangen ist oder nicht
+            if(!new Date().before(startTimeDate) && new Date().getMinutes() != startTimeDate.getMinutes()){
+                startTime.setError("Gueltige Zeit auswaehlen");
+            }
         }catch (Exception ex){
             System.out.println(ex);
         }

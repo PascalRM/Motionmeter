@@ -1,5 +1,6 @@
 package ramanathan.pascal.motionmeter;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -7,6 +8,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
 
 import ramanathan.pascal.motionmeter.model.Event;
 import ramanathan.pascal.motionmeter.model.Events;
@@ -18,6 +21,8 @@ public class FinalNewEventActivity extends AppCompatActivity {
     TextView startZeit;
     TextView endZeit;
     TextView beschreibung;
+
+    SimpleDateFormat formatter = new SimpleDateFormat("HH:mm dd/MM/yyyy");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +38,14 @@ public class FinalNewEventActivity extends AppCompatActivity {
         beschreibung = findViewById(R.id.textViewBeschreibung);
 
         name.setText(event.getName());
-        startZeit.setText(event.getStartdate().toString());
-        endZeit.setText(event.getEnddate().toString());
+        startZeit.setText(formatter.format(event.getStartdate()));
+        endZeit.setText(formatter.format(event.getEnddate()));
         beschreibung.setText(event.getBeschreibung());
     }
 
     public void onClickInsert(View view){
-        //TODO Event eintragen in Datenbank
+        Intent intent = new Intent(this,GenerateNewEventActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }
