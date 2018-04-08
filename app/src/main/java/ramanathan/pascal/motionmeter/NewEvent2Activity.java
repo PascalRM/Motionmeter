@@ -7,8 +7,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
+import ramanathan.pascal.motionmeter.controller.EventController;
 import ramanathan.pascal.motionmeter.model.Event;
-import ramanathan.pascal.motionmeter.model.Events;
 
 public class NewEvent2Activity extends AppCompatActivity {
 
@@ -23,7 +23,7 @@ public class NewEvent2Activity extends AppCompatActivity {
     }
 
     public void updateEvent() {
-        Event newEvent = Events.getInstance().getNewEvent();
+        Event newEvent = EventController.getInstance().getNewEvent();
 
         try {
             newEvent.setBeschreibung(beschreibung.getText().toString());
@@ -31,7 +31,7 @@ public class NewEvent2Activity extends AppCompatActivity {
             System.out.println(e);
         }
 
-        Events.getInstance().setNewEvent(newEvent);
+        EventController.getInstance().setNewEvent(newEvent);
     }
 
 

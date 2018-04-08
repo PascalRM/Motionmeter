@@ -36,7 +36,8 @@
         <activity android:name=".NewEvent2Activity" />
         <activity android:name=".FinalNewEventActivity" />
         <activity android:name=".NewEventPasswordActivity" />
-        <activity android:name=".GenerateNewEventActivity"></activity>
+        <activity android:name=".GenerateNewEventActivity" />
+        <activity android:name=".OwnerEventActivity"></activity>
     </application>
 
 </manifest>

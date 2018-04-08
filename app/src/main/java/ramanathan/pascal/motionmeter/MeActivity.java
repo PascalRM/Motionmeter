@@ -11,7 +11,6 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.AsyncTask;
-import android.os.NetworkOnMainThreadException;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
@@ -25,15 +24,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-
-import ramanathan.pascal.motionmeter.model.Events;
 
 public class MeActivity extends AppCompatActivity {
 

@@ -1,17 +1,13 @@
-package ramanathan.pascal.motionmeter.model;
+package ramanathan.pascal.motionmeter.controller;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
-import com.google.android.gms.ads.identifier.AdvertisingIdClient;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -20,32 +16,30 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.HashMap;
+import java.util.Map;
 
-import ramanathan.pascal.motionmeter.EventsActivity;
-import ramanathan.pascal.motionmeter.MainActivity;
+import ramanathan.pascal.motionmeter.model.Event;
 
 /**
  * Created by Pascal on 13.03.2018.
  */
 
-public class Events {
-    private static final Events ourInstance = new Events();
+public class EventController {
+    private static final EventController ourInstance = new EventController();
 
     ArrayAdapter<Event> adapter = null;
     ArrayList<Event> events = new ArrayList<>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     Event newEvent;
+    String id = "";
 
-    public static Events getInstance() {
+    public static EventController getInstance() {
         return ourInstance;
     }
 
-    private Events() {
+    private EventController() {
     }
 
     public ArrayList<Event> getEvents(){
@@ -79,7 +73,10 @@ public class Events {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
+                        id = "";
+                        addOwner(documentReference.getId());
                         Log.i("Event hinzugefuegt", "DocumentSnapshot added with ID: " + documentReference.getId());
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -93,6 +90,32 @@ public class Events {
                     }
                 });
         this.newEvent = null;
+    }
+
+    public void addOwner(String id){
+        Map<String, String> info = new HashMap<>();
+
+        info.put("uid", FirebaseAuth.getInstance().getCurrentUser().getUid());
+        info.put("id_event",id);
+
+        db.collection("ownerEvent")
+                .add(info)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.i("Event hinzugefuegt", "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("Fehler", "Error adding document", e);
+                        try {
+                            throw new Exception("a",e);
+                        } catch (Exception e1) {
+                        }
+                    }
+                });
     }
 
     public ArrayAdapter<Event> getAdapter() {

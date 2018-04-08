@@ -6,19 +6,17 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import ramanathan.pascal.motionmeter.controller.EventController;
 import ramanathan.pascal.motionmeter.model.Event;
-import ramanathan.pascal.motionmeter.model.Events;
 
 public class NewEventActivity extends AppCompatActivity {
 
@@ -42,7 +40,7 @@ public class NewEventActivity extends AppCompatActivity {
     }
 
     public void updateEvent(){
-        Event newEvent = Events.getInstance().getNewEvent();
+        Event newEvent = EventController.getInstance().getNewEvent();
 
         try {
             newEvent.setStartdate(formatter.parse(startTime.getText().toString()+" "+date.getText().toString()));
@@ -52,7 +50,7 @@ public class NewEventActivity extends AppCompatActivity {
             System.out.println(e);
         }
 
-        Events.getInstance().setNewEvent(newEvent);
+        EventController.getInstance().setNewEvent(newEvent);
     }
 
     //* --- OnClick Events --- *

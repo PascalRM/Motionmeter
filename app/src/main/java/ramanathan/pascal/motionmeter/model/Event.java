@@ -2,6 +2,7 @@ package ramanathan.pascal.motionmeter.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Pascal on 08.03.2018.
@@ -15,7 +16,7 @@ public class Event implements Serializable{
     private Date enddate;
     private String passwort;
     private String beschreibung;
-
+    private List bemerkungen;
 
     public String getName() {
         return name;
@@ -71,6 +72,14 @@ public class Event implements Serializable{
 
     public void setUID(String UID) {
         this.UID = UID;
+    }
+
+    public List getBemerkungen() {
+        return bemerkungen;
+    }
+
+    public void setBemerkungen(List bemerkungen) {
+        this.bemerkungen = bemerkungen;
     }
 
     @Override

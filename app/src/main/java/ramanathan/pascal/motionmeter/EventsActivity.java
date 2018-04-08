@@ -1,11 +1,9 @@
 package ramanathan.pascal.motionmeter;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -14,19 +12,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.firebase.firestore.DocumentListenOptions;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-
+import ramanathan.pascal.motionmeter.controller.EventController;
 import ramanathan.pascal.motionmeter.model.Event;
-import ramanathan.pascal.motionmeter.model.Events;
 
 public class EventsActivity extends AppCompatActivity {
 
     ListView list;
-    Events events;
+    EventController events;
 
     boolean doubleBackToExitPressedOnce = false;
 
@@ -58,7 +50,7 @@ public class EventsActivity extends AppCompatActivity {
         };
 
         list = findViewById(R.id.listViewEvents);
-        events = Events.getInstance();
+        events = EventController.getInstance();
         ArrayAdapter adapter = new ArrayAdapter<Event>(this, android.R.layout.simple_list_item_1, events.getEvents());
         events.setAdapter(adapter);
 

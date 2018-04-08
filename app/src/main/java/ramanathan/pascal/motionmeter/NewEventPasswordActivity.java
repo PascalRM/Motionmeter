@@ -7,10 +7,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
-import org.w3c.dom.Text;
-
+import ramanathan.pascal.motionmeter.controller.EventController;
 import ramanathan.pascal.motionmeter.model.Event;
-import ramanathan.pascal.motionmeter.model.Events;
 
 public class NewEventPasswordActivity extends AppCompatActivity {
 
@@ -47,7 +45,7 @@ public class NewEventPasswordActivity extends AppCompatActivity {
     }
 
     public void updateEvent(){
-        Event event = Events.getInstance().getNewEvent();
+        Event event = EventController.getInstance().getNewEvent();
         event.setPasswort(password.getText().toString());
     }
 

@@ -1,11 +1,7 @@
 package ramanathan.pascal.motionmeter;
 
-import ramanathan.pascal.motionmeter.model.Event;
-import ramanathan.pascal.motionmeter.model.Events;
-
 import android.content.Intent;
 import android.os.Handler;
-import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -13,14 +9,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
-
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import java.util.Date;
 
 
 public class MyEventActivity extends AppCompatActivity {

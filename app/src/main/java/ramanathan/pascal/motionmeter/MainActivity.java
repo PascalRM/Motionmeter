@@ -1,35 +1,24 @@
 package ramanathan.pascal.motionmeter;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
-import android.view.Window;
-import android.widget.ListView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import ramanathan.pascal.motionmeter.model.Event;
-import ramanathan.pascal.motionmeter.model.Events;
+import ramanathan.pascal.motionmeter.controller.EventController;
 
 public class MainActivity extends AppCompatActivity {
     final int RC_SIGN_IN = 123;
 
 
-    Events events;
+    EventController events;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar.hide();
 
         //Adapter erstellen und Werte laden
-        events = Events.getInstance();
+        events = EventController.getInstance();
         events.load();
 
         // Choose authentication providers
