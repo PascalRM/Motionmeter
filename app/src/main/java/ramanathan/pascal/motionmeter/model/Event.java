@@ -1,8 +1,12 @@
 package ramanathan.pascal.motionmeter.model;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Pascal on 08.03.2018.
@@ -16,7 +20,8 @@ public class Event implements Serializable{
     private Date enddate;
     private String passwort;
     private String beschreibung;
-    private List bemerkungen;
+    private ArrayList<String> bemerkungen = new ArrayList<>();
+    private Map<String,Integer> bewertung = new HashMap<>();
 
     public String getName() {
         return name;
@@ -74,12 +79,28 @@ public class Event implements Serializable{
         this.UID = UID;
     }
 
-    public List getBemerkungen() {
+    public List<String> getBemerkungen() {
         return bemerkungen;
     }
 
-    public void setBemerkungen(List bemerkungen) {
+    public void setBemerkungen(ArrayList<String> bemerkungen){
         this.bemerkungen = bemerkungen;
+    }
+
+    public void addBemerkungen(String bemerkung) {
+        this.bemerkungen.add(bemerkung);
+    }
+
+    public Map<String, Integer> getBewertung() {
+        return bewertung;
+    }
+
+    public void setBewertung(Map<String, Integer> m){
+        this.bewertung = m;
+    }
+
+    public void setBewertung(String key, Integer value) {
+        this.bewertung.put(key,value);
     }
 
     @Override

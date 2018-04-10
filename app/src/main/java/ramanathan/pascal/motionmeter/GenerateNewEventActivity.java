@@ -1,5 +1,6 @@
 package ramanathan.pascal.motionmeter;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,6 +53,9 @@ public class GenerateNewEventActivity extends AppCompatActivity {
         event.setUser(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         event.setUID(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
+        //Example Data
+        event.addBemerkungen("heloo");
+        event.setBewertung("s",10);
 
         try{
             EventController.getInstance().addEvent(event);
@@ -60,6 +66,12 @@ public class GenerateNewEventActivity extends AppCompatActivity {
         }
     }
 
+    public void onClickFinish(View view){
+        Intent intent = new Intent(this,OwnerEventActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
 
 
     @Override

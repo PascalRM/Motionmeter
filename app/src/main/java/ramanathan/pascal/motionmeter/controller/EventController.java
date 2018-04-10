@@ -1,5 +1,6 @@
 package ramanathan.pascal.motionmeter.controller;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import ramanathan.pascal.motionmeter.EventsActivity;
 import ramanathan.pascal.motionmeter.model.Event;
 
 /**
@@ -46,8 +48,8 @@ public class EventController {
         return events;
     }
 
-    public void load(){
-        db.collection("events").addSnapshotListener(new EventListener<QuerySnapshot>() {
+    public void load(Activity activity){
+        db.collection("events").addSnapshotListener(activity,new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value,
                                 @Nullable FirebaseFirestoreException e) {
@@ -59,7 +61,7 @@ public class EventController {
                 for (DocumentSnapshot document : value) {
                     events.add(document.toObject(Event.class));
                 }
-                System.out.println("Änderungen erkannt");
+                System.out.println("Änderungen erkannt ->  EventController");
                 if(adapter != null){
                     adapter.notifyDataSetChanged();
                 }
@@ -74,7 +76,7 @@ public class EventController {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         id = "";
-                        addOwner(documentReference.getId());
+                        //addOwner(documentReference.getId());
                         Log.i("Event hinzugefuegt", "DocumentSnapshot added with ID: " + documentReference.getId());
 
                     }
@@ -92,31 +94,6 @@ public class EventController {
         this.newEvent = null;
     }
 
-    public void addOwner(String id){
-        Map<String, String> info = new HashMap<>();
-
-        info.put("uid", FirebaseAuth.getInstance().getCurrentUser().getUid());
-        info.put("id_event",id);
-
-        db.collection("ownerEvent")
-                .add(info)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.i("Event hinzugefuegt", "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("Fehler", "Error adding document", e);
-                        try {
-                            throw new Exception("a",e);
-                        } catch (Exception e1) {
-                        }
-                    }
-                });
-    }
 
     public ArrayAdapter<Event> getAdapter() {
         return adapter;
@@ -136,4 +113,6 @@ public class EventController {
     public void setNewEvent(Event newEvent) {
         this.newEvent = newEvent;
     }
+
+
 }

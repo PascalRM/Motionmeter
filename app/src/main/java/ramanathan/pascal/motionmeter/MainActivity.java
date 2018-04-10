@@ -30,8 +30,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar.hide();
 
         //Adapter erstellen und Werte laden
-        events = EventController.getInstance();
-        events.load();
+
 
         // Choose authentication providers
         List<AuthUI.IdpConfig> providers = Arrays.asList(

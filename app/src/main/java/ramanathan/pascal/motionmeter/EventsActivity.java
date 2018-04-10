@@ -4,21 +4,37 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.Date;
+
 import ramanathan.pascal.motionmeter.controller.EventController;
+import ramanathan.pascal.motionmeter.controller.MyEventController;
 import ramanathan.pascal.motionmeter.model.Event;
 
 public class EventsActivity extends AppCompatActivity {
 
     ListView list;
-    EventController events;
+    EventController eventController;
+
+    ArrayList<Event> events = new ArrayList<>();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     boolean doubleBackToExitPressedOnce = false;
 
@@ -50,9 +66,10 @@ public class EventsActivity extends AppCompatActivity {
         };
 
         list = findViewById(R.id.listViewEvents);
-        events = EventController.getInstance();
-        ArrayAdapter adapter = new ArrayAdapter<Event>(this, android.R.layout.simple_list_item_1, events.getEvents());
-        events.setAdapter(adapter);
+        eventController = EventController.getInstance();
+        eventController.load(EventsActivity.this);
+        ArrayAdapter adapter = new ArrayAdapter<Event>(this, android.R.layout.simple_list_item_1, eventController.getEvents());
+        eventController.setAdapter(adapter);
 
         list.setAdapter(adapter);
 
@@ -63,11 +80,52 @@ public class EventsActivity extends AppCompatActivity {
 
 
     public void showMyEvent(){
-        Intent m = new Intent(this,MyEventActivity.class);
+       checkIfEventExists();
+    }
+
+    public void showOwnerEventActivity() {
+        Intent m;
+        m = new Intent(this,OwnerEventActivity.class);
         m.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(m);
         finish();
         overridePendingTransition(0, 0);
+    }
+
+    public void showMyEventActivity(){
+        Intent m;
+        m = new Intent(this,MyEventActivity.class);
+        m.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(m);
+        finish();
+        overridePendingTransition(0, 0);
+    }
+
+    public void checkIfEventExists(){
+        db.collection("events").whereEqualTo("uid", FirebaseAuth.getInstance().getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w("Error", "Listen failed.", e);
+                    return;
+                }
+                events.clear();
+                for (DocumentSnapshot document : value) {
+                    if(document.toObject(Event.class).getEnddate().after(new Date()) &&  document.toObject(Event.class).getStartdate().before(new Date()) || document.toObject(Event.class).getStartdate().getTime() == new Date().getTime() ){
+                        events.add(document.toObject(Event.class));
+                    }
+                }
+
+                if(events.size() > 0){
+                    showOwnerEventActivity();
+                }else{
+                    showMyEventActivity();
+                }
+            }
+        });
+
+
     }
 
     public void showMe(){

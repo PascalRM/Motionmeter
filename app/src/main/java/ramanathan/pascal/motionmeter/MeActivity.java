@@ -12,6 +12,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -25,14 +26,27 @@ import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Date;
+
+import ramanathan.pascal.motionmeter.model.Event;
 
 public class MeActivity extends AppCompatActivity {
 
     TextView username;
     TextView email;
     ImageView profilPhoto;
+    ArrayList<Event> events = new ArrayList<>();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,12 +181,53 @@ public class MeActivity extends AppCompatActivity {
         startActivity(m);
         finish();
     }
+    public void showMyEvent(){
+        checkIfEventExists();
+    }
 
-    public void showMyEvent() {
-        Intent m = new Intent(this, MyEventActivity.class);
+    public void showOwnerEventActivity() {
+        Intent m;
+        m = new Intent(this,OwnerEventActivity.class);
         m.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(m);
         finish();
         overridePendingTransition(0, 0);
     }
+
+    public void showMyEventActivity(){
+        Intent m;
+        m = new Intent(this,MyEventActivity.class);
+        m.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(m);
+        finish();
+        overridePendingTransition(0, 0);
+    }
+
+    public void checkIfEventExists(){
+        db.collection("events").whereEqualTo("uid", FirebaseAuth.getInstance().getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w("Error", "Listen failed.", e);
+                    return;
+                }
+                events.clear();
+                for (DocumentSnapshot document : value) {
+                    if(document.toObject(Event.class).getEnddate().after(new Date()) &&  document.toObject(Event.class).getStartdate().before(new Date()) || document.toObject(Event.class).getStartdate().getTime() == new Date().getTime() ){
+                        events.add(document.toObject(Event.class));
+                    }
+                }
+
+                if(events.size() > 0){
+                    showOwnerEventActivity();
+                }else{
+                    showMyEventActivity();
+                }
+            }
+        });
+
+
+    }
+
 }
