@@ -8,11 +8,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -27,7 +34,6 @@ import java.util.Map;
 import ramanathan.pascal.motionmeter.model.Event;
 
 public class OwnerEventActivity extends AppCompatActivity {
-
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayList<Event> events = new ArrayList<>();
@@ -102,11 +108,13 @@ public class OwnerEventActivity extends AppCompatActivity {
                     for (DocumentSnapshot document : value) {
                         events.add(document.toObject(Event.class));
                     }
+
                     getActualEvent();
                 }else{
                     for (DocumentSnapshot document : value) {
-                        if(document.toObject(Event.class).getUID() == event.getUID() && document.toObject(Event.class).getName() == event.getName()){
-                            //event.setBewertung(document.toObject(Event.class).getBewertung());
+                        Event ev = document.toObject(Event.class);
+                        if(ev.getUID().equals(event.getUID()) && ev.getName().equals(event.getName())){
+                            event.setBewertung(document.toObject(Event.class).getBewertung());
                             event.getBemerkungen().clear();
 
                             for(String s:document.toObject(Event.class).getBemerkungen()){
@@ -115,9 +123,13 @@ public class OwnerEventActivity extends AppCompatActivity {
 
                         }
                     }
+                    setSatisfaction();
+                    adapter.notifyDataSetChanged();
                 }
+                setListViewHeightBasedOnChildren(bemerkungen);
             }
         });
+
     }
 
     public void getActualEvent(){
@@ -132,6 +144,7 @@ public class OwnerEventActivity extends AppCompatActivity {
             if(adapter == null){
                 adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, event.getBemerkungen());
                 bemerkungen.setAdapter(adapter);
+
             }else{
                 adapter.notifyDataSetChanged();
             }
@@ -147,4 +160,27 @@ public class OwnerEventActivity extends AppCompatActivity {
         }
         bewertung.setText(String.valueOf(sum));
     }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+    }
+
 }
+

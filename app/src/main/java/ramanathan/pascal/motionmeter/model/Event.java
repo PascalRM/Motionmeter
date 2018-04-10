@@ -88,7 +88,8 @@ public class Event implements Serializable{
     }
 
     public void addBemerkungen(String bemerkung) {
-        this.bemerkungen.add(bemerkung);
+
+        this.bemerkungen.add(0,bemerkung);
     }
 
     public Map<String, Integer> getBewertung() {

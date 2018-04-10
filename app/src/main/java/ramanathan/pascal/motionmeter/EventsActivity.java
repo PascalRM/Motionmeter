@@ -14,6 +14,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -102,16 +104,12 @@ public class EventsActivity extends AppCompatActivity {
     }
 
     public void checkIfEventExists(){
-        db.collection("events").whereEqualTo("uid", FirebaseAuth.getInstance().getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("events").whereEqualTo("uid", FirebaseAuth.getInstance().getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onEvent(@Nullable QuerySnapshot value,
-                                @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.w("Error", "Listen failed.", e);
-                    return;
-                }
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
                 events.clear();
-                for (DocumentSnapshot document : value) {
+                for (DocumentSnapshot document : task.getResult()) {
                     if(document.toObject(Event.class).getEnddate().after(new Date()) &&  document.toObject(Event.class).getStartdate().before(new Date()) || document.toObject(Event.class).getStartdate().getTime() == new Date().getTime() ){
                         events.add(document.toObject(Event.class));
                     }

@@ -7,60 +7,73 @@
     tools:context=".OwnerEventActivity">
 
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView_titleEvent"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="30sp" />
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/navigation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:text="Zufriendenheit"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/textView_titleEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/textView_satisfaction"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text=""
-            android:textAlignment="center"
-            android:textSize="20sp" />
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="Zufriendenheit"
+                android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/textView16"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:text="Bemerkungen"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/textView_satisfaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="20sp" />
 
-        <ListView
-            android:id="@+id/listViewBemerkungen"
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:layout_marginBottom="36dp"
-            app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
-            tools:layout_editor_absoluteX="16dp" />
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="Bemerkungen"
+                android:textSize="18sp" />
 
-    </LinearLayout>
+            <ListView
+                android:id="@+id/listViewBemerkungen"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginBottom="36dp"
+                app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
+                tools:layout_editor_absoluteX="16dp" />
+
+        </LinearLayout>
+    </ScrollView>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
