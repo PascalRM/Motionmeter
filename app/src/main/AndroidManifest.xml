@@ -23,8 +23,8 @@
         <activity
             android:name=".EventsActivity"
             android:label="@string/title_activity_events"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MyEventActivity"
             android:screenOrientation="portrait" />
@@ -34,16 +34,22 @@
         <activity
             android:name=".NewEventActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".NewEvent2Activity"
+        <activity
+            android:name=".NewEvent2Activity"
             android:screenOrientation="portrait" />
-        <activity android:name=".FinalNewEventActivity"
+        <activity
+            android:name=".FinalNewEventActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".NewEventPasswordActivity"
+        <activity
+            android:name=".NewEventPasswordActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".GenerateNewEventActivity"
+        <activity
+            android:name=".GenerateNewEventActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".OwnerEventActivity"
+        <activity
+            android:name=".OwnerEventActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".DetailEventActivity"></activity>
     </application>
 
 </manifest>

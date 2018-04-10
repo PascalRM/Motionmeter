@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -75,6 +77,14 @@ public class EventsActivity extends AppCompatActivity {
 
         list.setAdapter(adapter);
 
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Event event = (Event) list.getItemAtPosition(position);
+                showDetailEvent(event);
+            }
+        });
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_events);
@@ -132,6 +142,12 @@ public class EventsActivity extends AppCompatActivity {
         startActivity(m);
         finish();
         overridePendingTransition(0, 0);
+    }
+
+    public void showDetailEvent(Event event){
+        Intent intent = new Intent(this,DetailEventActivity.class);
+        intent.putExtra("event",event);
+        startActivity(intent);
     }
 
     @Override
