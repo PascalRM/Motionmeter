@@ -1,5 +1,6 @@
 package ramanathan.pascal.motionmeter;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -28,6 +31,7 @@ public class MemberEventActivity extends AppCompatActivity {
     TextView zufriedenheitAnzeige;
     SeekBar zufriedenheit;
     int zufriedenheitsWert;
+    String document_name ="";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     DocumentReference sfDocRef;
@@ -61,6 +65,7 @@ public class MemberEventActivity extends AppCompatActivity {
         name = findViewById(R.id.textView_nameEventMember);
         event = (Event) getIntent().getSerializableExtra("event");
         sfDocRef =  db.collection("events").document(event.getDocument_name());
+        document_name = event.getDocument_name();
         zufriedenheit = findViewById(R.id.seekBar_zufriedenheit);
         zufriedenheitAnzeige = findViewById(R.id.textView_zufriedenheitMember);
 
@@ -69,7 +74,7 @@ public class MemberEventActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 zufriedenheitsWert = seekBar.getProgress()-10;
-                zufriedenheitAnzeige.setText(String.valueOf(zufriedenheitsWert));
+                zufriedenheitAnzeige.setText("Zufriedenheit:   " +String.valueOf(zufriedenheitsWert));
             }
 
             @Override
@@ -111,8 +116,23 @@ public class MemberEventActivity extends AppCompatActivity {
                 // Success
                 return null;
             }
+        }).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                CharSequence text = "Bewertung gesendet";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+                toast.show();
+            }
         });
     }
 
+    public void onClickBemerkung(View view){
+        Intent intent = new Intent(this,BemerkungMemberEventActivity.class);
+        event.setDocument_name(document_name);
+        intent.putExtra("event",event);
+        startActivity(intent);
+    }
 
 }

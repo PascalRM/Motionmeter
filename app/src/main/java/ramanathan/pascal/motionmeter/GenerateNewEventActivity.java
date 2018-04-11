@@ -53,10 +53,6 @@ public class GenerateNewEventActivity extends AppCompatActivity {
         event.setUser(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         event.setUID(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-        //Example Data
-        event.addBemerkungen("heloo");
-        event.setBewertung("s",10);
-
         try{
             EventController.getInstance().addEvent(event);
             infoIMG.setImageResource(R.drawable.ic_success);

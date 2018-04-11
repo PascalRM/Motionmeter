@@ -155,11 +155,12 @@ public class OwnerEventActivity extends AppCompatActivity {
     }
 
     public void setSatisfaction(){
-        //event.setBewertung("s",4);
         int sum = 0;
         for(Map.Entry<String,Integer> bewertung:event.getBewertung().entrySet()){
             sum += bewertung.getValue();
         }
+
+        sum = sum / event.getBemerkungen().size();
         bewertung.setText(String.valueOf(sum));
     }
 
@@ -186,6 +187,9 @@ public class OwnerEventActivity extends AppCompatActivity {
 
     public void OnClickClose(View view){
         db.collection("events").document(event.getDocument_name()).update("enddate", new Date());
+        Intent intent = new Intent(this,EventsActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }
