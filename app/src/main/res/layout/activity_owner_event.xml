@@ -56,6 +56,13 @@
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
+            <Button
+                android:id="@+id/button13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onClickShowChart"
+                android:text="Diagram" />
+
             <TextView
                 android:id="@+id/textView16"
                 android:layout_width="match_parent"

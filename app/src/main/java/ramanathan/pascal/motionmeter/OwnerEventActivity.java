@@ -96,7 +96,7 @@ public class OwnerEventActivity extends AppCompatActivity {
     }
 
     public void getEvents(){
-        db.collection("events").whereEqualTo("uid", FirebaseAuth.getInstance().getUid()).addSnapshotListener(OwnerEventActivity.this,new EventListener<QuerySnapshot>() {
+        db.collection("events").whereEqualTo("uid", FirebaseAuth.getInstance().getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value,
                                 @Nullable FirebaseFirestoreException e) {
@@ -159,8 +159,10 @@ public class OwnerEventActivity extends AppCompatActivity {
         for(Map.Entry<String,Integer> bewertung:event.getBewertung().entrySet()){
             sum += bewertung.getValue();
         }
-
-        sum = sum / event.getBemerkungen().size();
+        System.out.println("Size " + event.getBewertung().size());
+        if(sum > 0){
+            sum = sum / event.getBewertung().size();
+        }
         bewertung.setText(String.valueOf(sum));
     }
 
@@ -190,6 +192,12 @@ public class OwnerEventActivity extends AppCompatActivity {
         Intent intent = new Intent(this,EventsActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void onClickShowChart(View view){
+        Intent intent = new Intent(this,ChartOwnerEventActivity.class);
+        intent.putExtra("event",event);
+        startActivity(intent);
     }
 
 }

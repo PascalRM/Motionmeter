@@ -52,7 +52,8 @@
         <activity android:name=".DetailEventActivity" />
         <activity android:name=".LoginEventActivity" />
         <activity android:name=".MemberEventActivity" />
-        <activity android:name=".BemerkungMemberEventActivity"></activity>
+        <activity android:name=".BemerkungMemberEventActivity" />
+        <activity android:name=".ChartOwnerEventActivity"></activity>
     </application>
 
 </manifest>
