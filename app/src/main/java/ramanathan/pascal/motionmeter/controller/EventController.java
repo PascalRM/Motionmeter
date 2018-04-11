@@ -59,9 +59,10 @@ public class EventController {
                 }
                 events.clear();
                 for (DocumentSnapshot document : value) {
-                    events.add(document.toObject(Event.class));
+                    Event ev = document.toObject(Event.class);
+                    ev.setDocument_name(document.getId());
+                    events.add(ev);
                 }
-                System.out.println("Änderungen erkannt ->  EventController");
                 if(adapter != null){
                     adapter.notifyDataSetChanged();
                 }

@@ -4,31 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailEventActivity">
+    tools:context=".MemberEventActivity">
 
     <Button
-        android:id="@+id/button_eintragen"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:onClick="OnClickNext"
-        android:text="Eintragen"
-        app:layout_constraintBottom_toTopOf="@+id/button7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button7"
+        android:id="@+id/button12"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:onClick="OnClickBack"
-        android:text="Zurück"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingTop="15dp"
+        android:text="Event verlassen"
+        app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -44,43 +31,64 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView_nameEvent"
+            android:id="@+id/textView_nameEventMember"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/textView_beschreibung"
+            android:id="@+id/textView15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="15dp"
-            android:text="TextView"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/textView_zeitAnfang"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="25dp"
-            android:text="TextView"
+            android:text="Zufriedenheit"
             android:textAlignment="center"
             android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/textView17"
+        <SeekBar
+            android:id="@+id/seekBar_zufriedenheit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="bis"
-            android:textAlignment="center" />
+            android:max="20"
+            android:paddingTop="15dp" />
 
         <TextView
-            android:id="@+id/textView_zeitEnde"
+            android:id="@+id/textView_zufriedenheitMember"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
             android:textAlignment="center"
             android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:onClick="onClickBewerten"
+            android:paddingBottom="15dp"
+            android:text="Bewerten" />
+
+        <Button
+            android:id="@+id/button10"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingTop="15dp"
+            android:text="Bemerkung hinzufügen" />
 
     </LinearLayout>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:itemTextColor="@android:color/darker_gray"
+        app:menu="@menu/navigation" />
 </android.support.constraint.ConstraintLayout>

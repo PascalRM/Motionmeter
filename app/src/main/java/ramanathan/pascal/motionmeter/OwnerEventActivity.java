@@ -106,7 +106,9 @@ public class OwnerEventActivity extends AppCompatActivity {
                 }
                 if(events.size() == 0){
                     for (DocumentSnapshot document : value) {
-                        events.add(document.toObject(Event.class));
+                        Event ev = document.toObject(Event.class);
+                        ev.setDocument_name(document.getId());
+                        events.add(ev);
                     }
 
                     getActualEvent();
@@ -180,6 +182,10 @@ public class OwnerEventActivity extends AppCompatActivity {
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
+    }
+
+    public void OnClickClose(View view){
+        db.collection("events").document(event.getDocument_name()).update("enddate", new Date());
     }
 
 }

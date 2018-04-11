@@ -20,6 +20,7 @@ public class Event implements Serializable{
     private Date enddate;
     private String passwort;
     private String beschreibung;
+    private String document_name;
     private ArrayList<String> bemerkungen = new ArrayList<>();
     private Map<String,Integer> bewertung = new HashMap<>();
 
@@ -102,6 +103,14 @@ public class Event implements Serializable{
 
     public void setBewertung(String key, Integer value) {
         this.bewertung.put(key,value);
+    }
+
+    public String getDocument_name() {
+        return document_name;
+    }
+
+    public void setDocument_name(String document_name) {
+        this.document_name = document_name;
     }
 
     @Override

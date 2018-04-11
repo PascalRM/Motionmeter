@@ -49,7 +49,9 @@
         <activity
             android:name=".OwnerEventActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".DetailEventActivity"></activity>
+        <activity android:name=".DetailEventActivity" />
+        <activity android:name=".LoginEventActivity" />
+        <activity android:name=".MemberEventActivity"></activity>
     </application>
 
 </manifest>

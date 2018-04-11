@@ -70,7 +70,16 @@
                 android:layout_height="300dp"
                 android:layout_marginBottom="36dp"
                 app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
-                tools:layout_editor_absoluteX="16dp" />
+                tools:layout_editor_absoluteX="16dp">
+
+            </ListView>
+
+            <Button
+                android:id="@+id/button11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="OnClickClose"
+                android:text="Event beenden" />
 
         </LinearLayout>
     </ScrollView>

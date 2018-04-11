@@ -56,7 +56,7 @@ public class EventsActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case    R.id.navigation_events:
+                    case R.id.navigation_events:
                         return true;
                     case R.id.navigation_myEvent:
                         showMyEvent();
@@ -91,43 +91,43 @@ public class EventsActivity extends AppCompatActivity {
     }
 
 
-    public void showMyEvent(){
-       checkIfEventExists();
+    public void showMyEvent() {
+        checkIfEventExists();
     }
 
     public void showOwnerEventActivity() {
         Intent m;
-        m = new Intent(this,OwnerEventActivity.class);
+        m = new Intent(this, OwnerEventActivity.class);
         m.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(m);
         finish();
         overridePendingTransition(0, 0);
     }
 
-    public void showMyEventActivity(){
+    public void showMyEventActivity() {
         Intent m;
-        m = new Intent(this,MyEventActivity.class);
+        m = new Intent(this, MyEventActivity.class);
         m.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(m);
         finish();
         overridePendingTransition(0, 0);
     }
 
-    public void checkIfEventExists(){
+    public void checkIfEventExists() {
         db.collection("events").whereEqualTo("uid", FirebaseAuth.getInstance().getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
                 events.clear();
                 for (DocumentSnapshot document : task.getResult()) {
-                    if(document.toObject(Event.class).getEnddate().after(new Date()) &&  document.toObject(Event.class).getStartdate().before(new Date()) || document.toObject(Event.class).getStartdate().getTime() == new Date().getTime() ){
+                    if (document.toObject(Event.class).getEnddate().after(new Date()) && document.toObject(Event.class).getStartdate().before(new Date()) || document.toObject(Event.class).getStartdate().getTime() == new Date().getTime()) {
                         events.add(document.toObject(Event.class));
                     }
                 }
 
-                if(events.size() > 0){
+                if (events.size() > 0) {
                     showOwnerEventActivity();
-                }else{
+                } else {
                     showMyEventActivity();
                 }
             }
@@ -136,17 +136,17 @@ public class EventsActivity extends AppCompatActivity {
 
     }
 
-    public void showMe(){
-        Intent m = new Intent(this,MeActivity.class);
+    public void showMe() {
+        Intent m = new Intent(this, MeActivity.class);
         m.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(m);
         finish();
         overridePendingTransition(0, 0);
     }
 
-    public void showDetailEvent(Event event){
-        Intent intent = new Intent(this,DetailEventActivity.class);
-        intent.putExtra("event",event);
+    public void showDetailEvent(Event event) {
+        Intent intent = new Intent(this, DetailEventActivity.class);
+        intent.putExtra("event", event);
         startActivity(intent);
     }
 
@@ -164,7 +164,7 @@ public class EventsActivity extends AppCompatActivity {
 
             @Override
             public void run() {
-                doubleBackToExitPressedOnce=false;
+                doubleBackToExitPressedOnce = false;
             }
         }, 2000);
     }
