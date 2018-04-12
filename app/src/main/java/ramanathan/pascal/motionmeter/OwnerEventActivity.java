@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -38,7 +39,7 @@ public class OwnerEventActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayList<Event> events = new ArrayList<>();
     //Aktueller Event
-    Event event;
+    Event event = null;
     TextView title;
     TextView bewertung;
     ArrayAdapter<String> adapter;
@@ -48,7 +49,7 @@ public class OwnerEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_event);
-        getEvents();
+
 
         BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
                 = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -76,7 +77,19 @@ public class OwnerEventActivity extends AppCompatActivity {
         title = findViewById(R.id.textView_titleEvent);
         bewertung = findViewById(R.id.textView_satisfaction);
         bemerkungen = findViewById(R.id.listViewBemerkungen);
+        event = (Event) getIntent().getSerializableExtra("event");
 
+        Button b = findViewById(R.id.button_beendenEvent);
+        b.setVisibility(View.VISIBLE);
+
+
+
+
+        if (event == null) {
+            getEvents();
+        } else {
+            getEvent();
+        }
     }
 
     public void showEvents() {
@@ -95,78 +108,126 @@ public class OwnerEventActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
     }
 
-    public void getEvents(){
+    public void getEvents() {
         db.collection("events")
                 .whereEqualTo("uid", FirebaseAuth.getInstance().getUid())
-                .whereEqualTo("over",false)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value,
-                                @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.w("Error", "Listen failed.", e);
-                    return;
-                }
-                if(events.size() == 0){
-                    for (DocumentSnapshot document : value) {
-                        Event ev = document.toObject(Event.class);
-                        ev.setDocument_name(document.getId());
-                        events.add(ev);
-                    }
-
-                    getActualEvent();
-                }else{
-                    for (DocumentSnapshot document : value) {
-                        Event ev = document.toObject(Event.class);
-                        if(ev.getUID().equals(event.getUID()) && ev.getName().equals(event.getName())){
-                            event.setBewertung(document.toObject(Event.class).getBewertung());
-                            event.getBemerkungen().clear();
-
-                            for(String s:document.toObject(Event.class).getBemerkungen()){
-                                event.addBemerkungen(s);
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w("Error", "Listen failed.", e);
+                            return;
+                        }
+                        if (events.size() == 0) {
+                            for (DocumentSnapshot document : value) {
+                                Event ev = document.toObject(Event.class);
+                                ev.setDocument_name(document.getId());
+                                events.add(ev);
                             }
 
+                            getActualEvent();
+                        } else {
+                            for (DocumentSnapshot document : value) {
+                                Event ev = document.toObject(Event.class);
+                                if (ev.getUID().equals(event.getUID()) && ev.getName().equals(event.getName())) {
+                                    event.setBewertung(document.toObject(Event.class).getBewertung());
+                                    event.getBemerkungen().clear();
+
+                                    for (String s : document.toObject(Event.class).getBemerkungen()) {
+                                        event.addBemerkungen(s);
+                                    }
+
+                                }
+                            }
+                            setSatisfaction();
+                            adapter.notifyDataSetChanged();
                         }
+                        setListViewHeightBasedOnChildren(bemerkungen);
                     }
-                    setSatisfaction();
-                    adapter.notifyDataSetChanged();
-                }
-                setListViewHeightBasedOnChildren(bemerkungen);
-            }
-        });
+                });
 
     }
 
-    public void getActualEvent(){
+    public void getEvent() {
+        Button b = findViewById(R.id.button_beendenEvent);
+        b.setVisibility(View.GONE);
+
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, event.getBemerkungen());
+        bemerkungen.setAdapter(adapter);
+        db.collection("events")
+                .whereEqualTo("uid", FirebaseAuth.getInstance().getUid())
+                .whereEqualTo("name", event.getName())
+                .whereEqualTo("over", true)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w("Error", "Listen failed.", e);
+                            return;
+                        }
+                        for (DocumentSnapshot document : value) {
+                            Event ev = document.toObject(Event.class);
+                            if (ev.getUID().equals(event.getUID()) && ev.getName().equals(event.getName()) && ev.getEnddate().equals(event.getEnddate())) {
+                                event.setBewertung(document.toObject(Event.class).getBewertung());
+                                event.getBemerkungen().clear();
+
+                                for (String s : document.toObject(Event.class).getBemerkungen()) {
+                                    event.addBemerkungen(s);
+                                }
+
+                            }
+                        }
+                        setSatisfaction();
+
+
+
+                        adapter.notifyDataSetChanged();
+                        setListViewHeightBasedOnChildren(bemerkungen);
+                    }
+                });
+
+    }
+
+    public void getActualEvent() {
         event = null;
-        for (Event e:events){
-            if(e.getEnddate().after(new Date()) &&  e.getStartdate().before(new Date()) || e.getStartdate().getTime() == new Date().getTime() ){
+        for (Event e : events) {
+            if (e.getEnddate().after(new Date()) && e.getStartdate().before(new Date()) || e.getStartdate().getTime() == new Date().getTime()) {
                 event = e;
             }
         }
-        if(event != null){
+        if (event != null) {
             title.setText(event.toString());
-            if(adapter == null){
+            if (adapter == null) {
                 adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, event.getBemerkungen());
                 bemerkungen.setAdapter(adapter);
 
-            }else{
+            } else {
                 adapter.notifyDataSetChanged();
             }
         }
         setSatisfaction();
     }
 
-    public void setSatisfaction(){
+    public void setSatisfaction() {
         int sum = 0;
-        for(Map.Entry<String,Integer> bewertung:event.getBewertung().entrySet()){
-            sum += bewertung.getValue();
+        Button b = findViewById(R.id.button_diagram);
+        if(event.getBewertung().size() == 0){
+            b.setEnabled(false);
+            bewertung.setText(String.valueOf(sum));
+        }else{
+            b.setEnabled(true);
+            for (Map.Entry<String, Integer> bewertung : event.getBewertung().entrySet()) {
+                sum += bewertung.getValue();
+            }
+            System.out.println("Size " + event.getBewertung().size());
+            if (sum > 0) {
+                sum = sum / event.getBewertung().size();
+            }
+            bewertung.setText(String.valueOf(sum));
         }
-        System.out.println("Size " + event.getBewertung().size());
-        if(sum > 0){
-            sum = sum / event.getBewertung().size();
-        }
-        bewertung.setText(String.valueOf(sum));
+
     }
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {
@@ -190,18 +251,18 @@ public class OwnerEventActivity extends AppCompatActivity {
         listView.setLayoutParams(params);
     }
 
-    public void OnClickClose(View view){
+    public void OnClickClose(View view) {
         db.collection("events").document(event.getDocument_name()).update("enddate", new Date());
         db.collection("events").document(event.getDocument_name()).update("over", true);
 
-        Intent intent = new Intent(this,EventsActivity.class);
+        Intent intent = new Intent(this, EventsActivity.class);
         startActivity(intent);
         finish();
     }
 
-    public void onClickShowChart(View view){
-        Intent intent = new Intent(this,ChartOwnerEventActivity.class);
-        intent.putExtra("event",event);
+    public void onClickShowChart(View view) {
+        Intent intent = new Intent(this, ChartOwnerEventActivity.class);
+        intent.putExtra("event", event);
         startActivity(intent);
     }
 

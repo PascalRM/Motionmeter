@@ -76,6 +76,12 @@ public class MyEventActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void showMyOldEvents(View view){
+        Intent intent = new Intent(this,MyOldEventsActivity.class);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+    }
+
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {

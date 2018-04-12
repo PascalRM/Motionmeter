@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -70,9 +71,13 @@ public class EventsActivity extends AppCompatActivity {
         };
 
         list = findViewById(R.id.listViewEvents);
+        TextView emptyText = findViewById(android.R.id.empty);
+        list.setEmptyView(emptyText);
         eventController = EventController.getInstance();
         eventController.load(EventsActivity.this);
+
         ArrayAdapter adapter = new ArrayAdapter<Event>(this, android.R.layout.simple_list_item_1, eventController.getEvents());
+
         eventController.setAdapter(adapter);
 
         list.setAdapter(adapter);

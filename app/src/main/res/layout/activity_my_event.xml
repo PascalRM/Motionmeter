@@ -31,9 +31,17 @@
             android:id="@+id/button3"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="15dp"
             android:onClick="showNewEvent"
             android:text="Event erstellen" />
+
+        <Button
+            android:id="@+id/button14"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="15dp"
+            android:onClick="showMyOldEvents"
+            android:text="Meine Events ansehen" />
     </LinearLayout>
 
     <android.support.design.widget.BottomNavigationView

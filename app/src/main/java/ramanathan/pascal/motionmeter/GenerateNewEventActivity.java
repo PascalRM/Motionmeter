@@ -42,6 +42,7 @@ public class GenerateNewEventActivity extends AppCompatActivity {
     boolean doubleBackToExitPressedOnce = false;
     ArrayList<Event> events = new ArrayList<>();
     Event event;
+    boolean eintragFehlgeschlagen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class GenerateNewEventActivity extends AppCompatActivity {
     }
 
     public void insert() {
+        eintragFehlgeschlagen = false;
         try  {
             EventController.getInstance().addEvent(event);
             infoIMG.setImageResource(R.drawable.ic_success);
@@ -69,13 +71,17 @@ public class GenerateNewEventActivity extends AppCompatActivity {
         } catch (Exception ex) {
             infoText.setText("Eintragen fehlgeschlagen");
             Log.e("Fehler", "Eintragen fehlgeschlagen: " + ex);
+            eintragFehlgeschlagen = true;
         }
     }
 
-
-    //TODO falls fehlgeschlagen andere Activity starten
     public void onClickFinish(View view) {
-        Intent intent = new Intent(this, OwnerEventActivity.class);
+        Intent intent;
+        if(eintragFehlgeschlagen){
+            intent = new Intent(this,EventsActivity.class);
+        }else {
+            intent = new Intent(this, OwnerEventActivity.class);
+        }
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();

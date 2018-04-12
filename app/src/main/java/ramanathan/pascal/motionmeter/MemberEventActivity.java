@@ -121,7 +121,6 @@ public class MemberEventActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //TODO Event beenden implementieren
     public void onClickVerlassen(View view){
         Intent intent = new Intent(this,EventsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

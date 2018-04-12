@@ -57,7 +57,7 @@
                 android:textSize="20sp" />
 
             <Button
-                android:id="@+id/button13"
+                android:id="@+id/button_diagram"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="onClickShowChart"
@@ -82,7 +82,7 @@
             </ListView>
 
             <Button
-                android:id="@+id/button11"
+                android:id="@+id/button_beendenEvent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="OnClickClose"
