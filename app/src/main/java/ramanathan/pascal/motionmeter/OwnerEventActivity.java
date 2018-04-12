@@ -152,6 +152,7 @@ public class OwnerEventActivity extends AppCompatActivity {
     public void getEvent() {
         Button b = findViewById(R.id.button_beendenEvent);
         b.setVisibility(View.GONE);
+        title.setText(event.getName().toString());
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, event.getBemerkungen());
         bemerkungen.setAdapter(adapter);
@@ -206,6 +207,9 @@ public class OwnerEventActivity extends AppCompatActivity {
             } else {
                 adapter.notifyDataSetChanged();
             }
+
+            title.setText(event.getName().toString());
+            title.setText(event.getName().toString());
         }
         setSatisfaction();
     }
@@ -221,7 +225,6 @@ public class OwnerEventActivity extends AppCompatActivity {
             for (Map.Entry<String, Integer> bewertung : event.getBewertung().entrySet()) {
                 sum += bewertung.getValue();
             }
-            System.out.println("Size " + event.getBewertung().size());
             if (sum > 0) {
                 sum = sum / event.getBewertung().size();
             }
