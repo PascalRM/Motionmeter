@@ -23,6 +23,7 @@ public class Event implements Serializable{
     private String document_name;
     private ArrayList<String> bemerkungen = new ArrayList<>();
     private Map<String,Integer> bewertung = new HashMap<>();
+    private boolean over = false;
 
     public String getName() {
         return name;
@@ -111,6 +112,14 @@ public class Event implements Serializable{
 
     public void setDocument_name(String document_name) {
         this.document_name = document_name;
+    }
+
+    public boolean isOver() {
+        return over;
+    }
+
+    public void setOver(boolean over) {
+        this.over = over;
     }
 
     @Override

@@ -52,6 +52,7 @@ public class DetailEventActivity extends AppCompatActivity {
         Intent m = new Intent(this, LoginEventActivity.class);
         m.putExtra("event",event);
         startActivity(m);
+        finish();
     }
 
     public void OnClickBack(View view){

@@ -41,26 +41,6 @@ public class MemberEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_event);
 
-        BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-                = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navigation_events:
-                        return true;
-                    case R.id.navigation_myEvent:
-                        return true;
-                    case R.id.navigation_Ich:
-                        return true;
-                }
-                return false;
-            }
-        };
-
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navigation.setSelectedItemId(R.id.navigation_events);
 
         name = findViewById(R.id.textView_nameEventMember);
         event = (Event) getIntent().getSerializableExtra("event");
@@ -97,10 +77,16 @@ public class MemberEventActivity extends AppCompatActivity {
             public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
                 event = documentSnapshot.toObject(Event.class);
                 if(event.getEnddate().before(new Date())){
-                    finish();
+                    showEvents();
                 }
             }
         });
+    }
+
+    public  void showEvents(){
+        Intent intent = new Intent(this, EventsActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void onClickBewerten(View view){
@@ -135,4 +121,11 @@ public class MemberEventActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //TODO Event beenden implementieren
+    public void onClickVerlassen(View view){
+        Intent intent = new Intent(this,EventsActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
 }

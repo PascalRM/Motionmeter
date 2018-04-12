@@ -49,7 +49,7 @@ public class EventController {
     }
 
     public void load(Activity activity){
-        db.collection("events").addSnapshotListener(activity,new EventListener<QuerySnapshot>() {
+        db.collection("events").whereEqualTo("over",false).addSnapshotListener(activity,new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value,
                                 @Nullable FirebaseFirestoreException e) {

@@ -96,7 +96,10 @@ public class OwnerEventActivity extends AppCompatActivity {
     }
 
     public void getEvents(){
-        db.collection("events").whereEqualTo("uid", FirebaseAuth.getInstance().getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("events")
+                .whereEqualTo("uid", FirebaseAuth.getInstance().getUid())
+                .whereEqualTo("over",false)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value,
                                 @Nullable FirebaseFirestoreException e) {
@@ -189,6 +192,8 @@ public class OwnerEventActivity extends AppCompatActivity {
 
     public void OnClickClose(View view){
         db.collection("events").document(event.getDocument_name()).update("enddate", new Date());
+        db.collection("events").document(event.getDocument_name()).update("over", true);
+
         Intent intent = new Intent(this,EventsActivity.class);
         startActivity(intent);
         finish();
