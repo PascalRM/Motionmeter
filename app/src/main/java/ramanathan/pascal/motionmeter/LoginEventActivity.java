@@ -28,7 +28,6 @@ public class LoginEventActivity extends AppCompatActivity {
     }
 
     public void OnClickLogin(View view) {
-        System.out.println("Password is " + event.getPasswort());
         if (event.getPasswort().equals(password.getText().toString())) {
             Intent intent = new Intent(this, MemberEventActivity.class);
             intent.putExtra("event", event);

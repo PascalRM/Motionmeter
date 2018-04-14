@@ -103,7 +103,6 @@ public class MeActivity extends AppCompatActivity {
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
-                        //No button clicked
                         break;
                 }
             }
@@ -181,6 +180,7 @@ public class MeActivity extends AppCompatActivity {
         startActivity(m);
         finish();
     }
+
     public void showMyEvent(){
         checkIfEventExists();
     }

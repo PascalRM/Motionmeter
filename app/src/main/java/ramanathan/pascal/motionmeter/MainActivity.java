@@ -30,10 +30,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Hide Actionbar
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-
 
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
@@ -69,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(events);
                 finish();
             } else {
-                // Sign in failed, check response for error code
-                // ...
                 AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                 if(!checkNetworkWorking()){
                     alertDialog.setTitle("Fehler");

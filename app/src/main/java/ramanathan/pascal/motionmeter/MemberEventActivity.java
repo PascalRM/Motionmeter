@@ -41,7 +41,6 @@ public class MemberEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_event);
 
-
         name = findViewById(R.id.textView_nameEventMember);
         event = (Event) getIntent().getSerializableExtra("event");
         sfDocRef =  db.collection("events").document(event.getDocument_name());
@@ -99,7 +98,6 @@ public class MemberEventActivity extends AppCompatActivity {
                 DocumentSnapshot snapshot = transaction.get(sfDocRef);
                 transaction.update(sfDocRef, "bewertung", event.getBewertung());
 
-                // Success
                 return null;
             }
         }).addOnSuccessListener(new OnSuccessListener<Void>() {

@@ -82,9 +82,6 @@ public class OwnerEventActivity extends AppCompatActivity {
         Button b = findViewById(R.id.button_beendenEvent);
         b.setVisibility(View.VISIBLE);
 
-
-
-
         if (event == null) {
             getEvents();
         } else {

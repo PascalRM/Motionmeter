@@ -34,14 +34,12 @@ public class ChartOwnerEventActivity extends AppCompatActivity {
         event = (Event) getIntent().getSerializableExtra("event");
         fillData();
 
-        //chart.setBackgroundColor(getResources().getColor()); // use your bg color
         chart.setDescription(new Description());
         chart.setDrawGridBackground(false);
         chart.setDrawBorders(false);
 
         chart.setAutoScaleMinMaxEnabled(true);
 
-        // remove axis
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setEnabled(true);
         leftAxis.setLabelCount(10);
@@ -51,7 +49,6 @@ public class ChartOwnerEventActivity extends AppCompatActivity {
         XAxis xAxis = chart.getXAxis();
         xAxis.setEnabled(false);
 
-        // hide legend
         Legend legend = chart.getLegend();
         legend.setEnabled(false);
 
@@ -73,6 +70,6 @@ public class ChartOwnerEventActivity extends AppCompatActivity {
         LineDataSet dataSet = new LineDataSet(entries, "Zufriedenheit");
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
-        chart.invalidate(); // refresh
+        chart.invalidate();
     }
 }

@@ -65,7 +65,6 @@ public class MyEventActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
     }
 
-    //OnClickBtnEvent
     public void showEvents(View view) {
         this.showEvents();
     }

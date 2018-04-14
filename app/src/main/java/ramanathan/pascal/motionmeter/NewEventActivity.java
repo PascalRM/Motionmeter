@@ -53,8 +53,6 @@ public class NewEventActivity extends AppCompatActivity {
         EventController.getInstance().setNewEvent(newEvent);
     }
 
-    //* --- OnClick Events --- *
-
     public void onClickDateView(View v) {
         // calender class's instance and get current date , month and year from calender
         final Calendar c = Calendar.getInstance();
