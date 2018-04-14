@@ -49,12 +49,17 @@
         <activity
             android:name=".OwnerEventActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".DetailEventActivity" />
-        <activity android:name=".LoginEventActivity" />
-        <activity android:name=".MemberEventActivity" />
-        <activity android:name=".BemerkungMemberEventActivity" />
+        <activity android:name=".DetailEventActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".LoginEventActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MemberEventActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".BemerkungMemberEventActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".ChartOwnerEventActivity" />
-        <activity android:name=".MyOldEventsActivity" />
+        <activity android:name=".MyOldEventsActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -48,7 +48,7 @@ public class MemberEventActivity extends AppCompatActivity {
         document_name = event.getDocument_name();
         zufriedenheit = findViewById(R.id.seekBar_zufriedenheit);
         zufriedenheitAnzeige = findViewById(R.id.textView_zufriedenheitMember);
-
+        name.setText(event.getName().toString());
         zufriedenheit.setProgress(10);
         zufriedenheit.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
